@@ -13,4 +13,4 @@ where countrycode = 'JPN';
 select city, state
 from station;
 
-/Exercide 4
+/Exercise 4
