@@ -13,14 +13,16 @@ from employees;
 
 --- Exercise 4 (cứ báo lỗi hoài à huhu)
 
---- Exercise 5 (chọn id > lọc skill gồm 3 skill > group theo id ***nhưng tại sao lại có count huhu***)
+--- Exercise 5 (chọn id > lọc skill theo đkiện 3 skill > group theo id & count đếm những ai có đủ ba kĩ năng mới hiện)
 SELECT candidate_id
 FROM candidates
 WHERE skill IN ('Python', 'Tableau', 'PostgreSQL')
 GROUP BY candidate_id
-HAVING COUNT(skill)=3;
+HAVING COUNT(skill)=3; ###tcount=3 vì có nghĩa là có đủ cả ba kĩ năng
 
 --- Exercise 6
+
+
 --- Exercise 7
 --- Exercise 8
 --- Exercise 9
