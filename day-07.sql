@@ -50,5 +50,10 @@ GROUP BY activity_date
 --- Exercise 8
 
 
---- Exercise 9
+--- Exercise 9 (ko check dc key)
+select 
+position('a' IN first_name)
+from worker
+WHERE first_name = 'Amitah';
+
 --- Exercise 10
