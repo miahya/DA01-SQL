@@ -26,9 +26,29 @@ GROUP BY product, mth
 ORDER BY mth, product
 
 --- Exercise 5
+SELECT sender_id,
+COUNT(sender_id) AS message_count
+FROM messages
+WHERE sent_date > '08/01/2022' AND sent_date <'09/01/2022'
+GROUP BY sender_id
+ORDER BY COUNT(sender_id) DESC
+LIMIT 2;
 
 --- Exercise 6
---- Exercise 7
+SELECT tweet_ID
+FROM Tweets
+WHERE LENGTH(content)>15;
+
+--- Exercise 7 (((có cách nào nhanh hơn để không phải tính tay trừ 30 ngày ko huhu)))
+SELECT activity_date AS day,
+COUNT(DISTINCT user_id) AS active_users
+FROM Activity
+WHERE activity_date>='2019-06-28'
+AND activity_date<='2019-07-27'
+GROUP BY activity_date 
+
 --- Exercise 8
+
+
 --- Exercise 9
 --- Exercise 10
