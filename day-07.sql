@@ -14,7 +14,7 @@ SELECT manufacturer,
 '$'||ROUND(SUM(total_sales)/1000000, 0)||' '||'million' As sale
 FROM pharmacy_sales
 GROUP BY manufacturer
-ORDER BY SUM(total_sales) DESC, manufacturer
+ORDER BY SUM(total_sales) DESC, manufacturer;
 
 --- Exercise 4: hàm Extract month from.. dễ bị lỗi
 SELECT 
@@ -23,7 +23,7 @@ product_id as product,
 ROUND(AVG(stars),2) as avg_stars
 FROM reviews
 GROUP BY product, mth
-ORDER BY mth, product
+ORDER BY mth, product;
 
 --- Exercise 5
 SELECT sender_id,
@@ -45,7 +45,7 @@ COUNT(DISTINCT user_id) AS active_users
 FROM Activity
 WHERE activity_date>='2019-06-28'
 AND activity_date<='2019-07-27'
-GROUP BY activity_date 
+GROUP BY activity_date;
 
 --- Exercise 8
 SELECT EXTRACT(MONTH FROM joining_date) AS MONTH, 
@@ -53,7 +53,7 @@ COUNT(*)
 FROM employees
 WHERE EXTRACT(MONTH FROM joining_date) IN (1,2,3,4,5,6,7)
 GROUP BY EXTRACT(MONTH FROM joining_date)
-ORDER BY EXTRACT(MONTH FROM joining_date)
+ORDER BY EXTRACT(MONTH FROM joining_date);
 
 --- Exercise 9 (ko check dc key)
 select 
@@ -62,3 +62,7 @@ from worker
 WHERE first_name = 'Amitah';
 
 --- Exercise 10
+select title || ' ' ||
+SUBSTRING(title, position('20' IN title), 4)
+from winemag_p2
+WHERE country = 'Macedonia';
