@@ -48,7 +48,12 @@ AND activity_date<='2019-07-27'
 GROUP BY activity_date 
 
 --- Exercise 8
-
+SELECT EXTRACT(MONTH FROM joining_date) AS MONTH, 
+COUNT(*)
+FROM employees
+WHERE EXTRACT(MONTH FROM joining_date) IN (1,2,3,4,5,6,7)
+GROUP BY EXTRACT(MONTH FROM joining_date)
+ORDER BY EXTRACT(MONTH FROM joining_date)
 
 --- Exercise 9 (ko check dc key)
 select 
