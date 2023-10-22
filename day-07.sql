@@ -39,19 +39,18 @@ SELECT tweet_ID
 FROM Tweets
 WHERE LENGTH(content)>15;
 
---- Exercise 7 (((có cách nào nhanh hơn để không phải tính tay trừ 30 ngày ko huhu)))
+--- Exercise 7 (((dùng hàm CAST đổi dữ liệu từ timestamp > DATE để trừ đi 30 ngày)))
 SELECT activity_date AS day,
 COUNT(DISTINCT user_id) AS active_users
 FROM Activity
-WHERE activity_date>='2019-06-28'
-AND activity_date<='2019-07-27'
+WHERE activity_date>='2019-06-28' AND activity_date<='2019-07-27' ---hoặc activity_date>CAST('2019-07-27' as date)-30 and activity_date<='2019-07-27'
 GROUP BY activity_date;
 
 --- Exercise 8
 SELECT EXTRACT(MONTH FROM joining_date) AS MONTH, 
 COUNT(*)
 FROM employees
-WHERE EXTRACT(MONTH FROM joining_date) IN (1,2,3,4,5,6,7)
+WHERE EXTRACT(MONTH FROM joining_date) IN (1,2,3,4,5,6,7) ---hoặc EXTRACT(MONTH FROM joining_date) BETWEEN 1 AND 7
 GROUP BY EXTRACT(MONTH FROM joining_date)
 ORDER BY EXTRACT(MONTH FROM joining_date);
 
@@ -62,7 +61,7 @@ from worker
 WHERE first_name = 'Amitah';
 
 --- Exercise 10
-select title || ' ' ||
-SUBSTRING(title, position('20' IN title), 4)
+select title || ' ' || SUBSTRING(title, position('20' IN title), 4)
+  ---SUBSTRING(title, position(' ' IN title)+1, 4)
 from winemag_p2
 WHERE country = 'Macedonia';
