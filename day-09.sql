@@ -24,4 +24,21 @@ SELECT
 FROM callers;
 
 --- Exercise 4
+SELECT name
+FROM Customer
+WHERE referee_id <> 2 OR referee_id IS NULL;
+
 --- Exercise 5
+select
+survived,
+count(case 
+        when pclass=1 then 1
+        end) as first_class,
+count(case 
+        when pclass=2 then 1
+        end) as second_class,
+count(case 
+        when pclass=3 then 1
+        end) as third_class
+from titanic
+group by survived;
