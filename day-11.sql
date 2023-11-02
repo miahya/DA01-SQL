@@ -57,4 +57,51 @@ Where pl.user_id is NULL
 ORDER BY p.page_id;
 
 ------- MID TERM TEST
+--- Q1
+select distinct title, replacement_cost
+from film
+order by replacement_cost, title;
+
+--- Q2
+select
+case
+	when replacement_cost between 9.99 and 19.99 then 'low'
+	when replacement_cost between 20.00 and 24.99 then 'medium'
+	when replacement_cost between 25.00 and 29.99 then 'high'
+end as category,
+count(*) as so_luong
+from public.film
+group by category;
+
+--- Q3
+select a.title, a.length, c.name
+from film as a
+join film_category as b on a.film_id = b.film_id
+join category as c on b.category_id=c.category_id
+and c.name IN  ('Drama', 'Sports')
+where c.name is not null
+order by a.length desc;
+
+--- Q4
+select c.name, count(c.name) as so_luong
+from film as a
+join film_category as b on a.film_id = b.film_id
+join category as c on b.category_id=c.category_id
+group by c.name
+order by count(c.name) desc;
+
+--- Q5
+select first_name, last_name, count(film_id)
+from actor a
+left join film_actor b on a.actor_id = b.actor_id
+group by first_name, last_name
+order by count(film_id) desc;
+
+--- Q6
+
+
+--- Q7
+
+
+--- Q8
 
