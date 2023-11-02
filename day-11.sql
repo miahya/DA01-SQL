@@ -56,6 +56,7 @@ FULL OUTER JOIN page_likes pl on p.page_id = pl.page_id
 Where pl.user_id is NULL
 ORDER BY p.page_id;
 
+**********************************************************************************
 ------- MID TERM TEST
 --- Q1
 select distinct title, replacement_cost
