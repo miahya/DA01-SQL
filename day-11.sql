@@ -5,7 +5,11 @@ from city
 inner join country on CITY.CountryCode = COUNTRY.Code
 GROUP BY COUNTRY.Continent;
 
---- Exercise 2
+--- Exercise 2 (join multiple conditions, left join để lấy full data của e.email_id)
+SELECT round(count(t.email_id)::decimal/ count(DISTINCT e.email_id),2) as activation_rate
+FROM emails e
+LEFT JOIN texts t on e.email_id = t.email_id
+AND signup_action = 'Confirmed'
 
 --- Exercise 3
 
