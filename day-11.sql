@@ -31,7 +31,15 @@ GROUP BY customer_id
 HAVING COUNT(DISTINCT product_category) = 3;
 
 --- Exercise 5
-
+select mng.employee_id,
+mng.name,
+count(mng.employee_id) as reports_count,
+round(avg(emp.age),0) as average_age
+from employees emp
+inner join employees mng on emp.reports_to = mng.employee_id
+group by mng.employee_id,  mng.name
+order by mng.employee_id;
+  
 --- Exercise 6
 select product_name,
 sum(unit) as unit
@@ -42,6 +50,11 @@ group by product_name
 having sum(unit) >= 100;
 
 --- Exercise 7
+SELECT p.page_id
+FROM pages p
+FULL OUTER JOIN page_likes pl on p.page_id = pl.page_id
+Where pl.user_id is NULL
+ORDER BY p.page_id;
 
---- Exercise 8
-\
+------- MID TERM TEST
+
