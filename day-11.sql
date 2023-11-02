@@ -98,10 +98,27 @@ group by first_name, last_name
 order by count(film_id) desc;
 
 --- Q6
-
+select address
+from address a
+left join customer c on a.address_id = c.address_id
+where customer_id is null;
 
 --- Q7
-
+select city, sum(amount) as doanh_thu
+from city a
+join address b on a.city_id = b.city_id
+join customer c on b. address_id = c.address_id
+join payment d on c.customer_id = d.customer_id
+group by city
+order by sum(amount) desc;
 
 --- Q8
-
+select country|| ', '||city as thong_tin, 
+sum(amount) as doanh_thu
+from city a
+join address b on a.city_id = b.city_id
+join customer c on b. address_id = c.address_id
+join payment d on c.customer_id = d.customer_id
+join country e on a.country_id = e.country_id
+group by country, city
+order by sum(amount);
