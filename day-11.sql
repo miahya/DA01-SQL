@@ -12,6 +12,15 @@ LEFT JOIN texts t on e.email_id = t.email_id
 AND signup_action = 'Confirmed'
 
 --- Exercise 3
+SELECT age_bucket, 
+ROUND(SUM(case when activity_type = 'send' then time_spent END)/
+  SUM(time_spent)*100.0,2) as send_perc,
+ROUND(SUM(CASE WHEN activity_type = 'open' then time_spent END)/
+  SUM(time_spent)*100.0,2) as open_perc
+FROM activities a
+LEFT JOIN age_breakdown b on a.user_id = b.user_id
+WHERE activity_type IN ('send','open')
+GROUP BY age_bucket;
 
 --- Exercise 4 (vì category chỉ có đúng 3 loại đó nên không cần câu lệnh WHERE để specify, nếu nhiều hơn thì mới cần)
 SELECT customer_id
