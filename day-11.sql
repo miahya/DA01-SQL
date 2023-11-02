@@ -20,6 +20,15 @@ HAVING COUNT(DISTINCT product_category) = 3;
 --- Exercise 5
 
 --- Exercise 6
-
+select product_name,
+sum(unit) as unit
+from products
+join orders on products.product_id = orders.product_id
+where extract(month from order_date) = 02 and extract(year from order_date) = 2020
+group by product_name
+having sum(unit) >= 100;
 
 --- Exercise 7
+
+--- Exercise 8
+\
