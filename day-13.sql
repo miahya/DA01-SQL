@@ -9,4 +9,13 @@ COUNT(DISTINCT company_id) AS duplicate_companies
 FROM post_duplicate
 WHERE so_bai > 1;
 
---- exercise 2:
+--- exercise 2: phải sdung hàm RANK thay LIMIT vì là top2 ở mỗi category, limit order by là tính chung trên toàn data
+
+
+
+
+
+
+
+
+
