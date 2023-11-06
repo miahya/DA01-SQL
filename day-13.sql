@@ -31,6 +31,16 @@ FROM(SELECT policy_holder_id, COUNT(case_id)
      HAVING COUNT(case_id) >= 3) as count_table;
 
 --- exercise 4:
+WITH like_cte AS
+(SELECT a.page_id as total_page, b.page_id as like_page
+FROM pages a    
+LEFT JOIN page_likes b on a.page_id = b.page_id)
+
+SELECT total_page AS page_id
+FROM like_cte
+WHERE like_page is NULL;
+
+--- exercise 5:
 
 
 
