@@ -40,9 +40,24 @@ SELECT total_page AS page_id
 FROM like_cte
 WHERE like_page is NULL;
 
---- exercise 5:
+--- exercise 5: chưa linh hoạt lắm vì sẽ phải nhập tay phần tháng khi muốn thay đổi...
+WITH active_user_cte AS
+(SELECT user_id,
+        COUNT(*) as interaction
+FROM user_actions
+WHERE EXTRACT(month FROM event_date) in ('06','07')
+GROUP BY user_id
+HAVING COUNT(DISTINCT event_type) = 3)
 
+SELECT EXTRACT(month from a.event_date),
+       COUNT(distinct b.user_id)
+FROM user_actions a
+JOIN active_user_cte b ON a.user_id = b.user_id
+Where EXTRACT(month from a.event_date) = '07'
+and EXTRACT(year from a.event_date) = '2022'
+GROUP BY EXTRACT(month from a.event_date)
 
+--- exercise 6:
 
 
 
