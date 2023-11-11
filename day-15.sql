@@ -6,3 +6,16 @@ SELECT
 	lag(spend) OVER(PARTITION BY product_id) as prev_year_spend,
 	round((spend-lag(spend) OVER(PARTITION BY product_id))/lag(spend) OVER(PARTITION BY product_id)*100,2) AS yoy_rate
 FROM user_transactions;
+
+--- exercise 2
+with cte_jpmorgan AS
+(SELECT *,
+rank() over(partition by card_name order by issue_month, issue_year) as ranking
+FROM monthly_cards_issued)
+
+select card_name, issued_amount
+from cte_jpmorgan
+where ranking = 1
+ORDER BY issued_amount DESC;
+
+--- exercise 3
