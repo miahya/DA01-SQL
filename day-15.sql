@@ -19,3 +19,13 @@ where ranking = 1
 ORDER BY issued_amount DESC;
 
 --- exercise 3
+WITH cte_transactions AS
+(SELECT *,
+RANK() over(PARTITION BY user_id order by transaction_date) as ranking
+FROM transactions)
+
+SELECT user_id, spend, transaction_date
+from cte_transactions
+where ranking = 3
+
+--- exercise 4
