@@ -29,3 +29,21 @@ from cte_transactions
 where ranking = 3
 
 --- exercise 4
+with cte_transactions AS
+(
+SELECT
+  transaction_date,
+  user_id,
+  COUNT(spend) OVER(PARTITION BY user_id order by transaction_date DESC) as count,
+  row_number() over(PARTITION BY user_id order by transaction_date DESC) as ranking
+FROM user_transactions
+)
+
+select transaction_date,
+  user_id,
+  count as purchase_count
+from cte_transactions
+where ranking = 1
+order by transaction_date;
+
+--- exercise 5
