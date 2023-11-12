@@ -73,7 +73,62 @@ SELECT
   END) as rolling_avg_3rd
 FROM cte_count
 
---- exercise 6: khos quas khujkhuj
+--- exercise 6: cast data timestamp as time để tính minutes
+with suspect_cte as
+(select 
+  merchant_id,
+  credit_card_id,
+  (t2 - t1)::time as interval
+FROM
+(SELECT 
+  merchant_id,
+  credit_card_id,
+  transaction_timestamp::time as t1,
+  lead(transaction_timestamp::time) 
+      OVER(PARTITION BY merchant_id, credit_card_id, amount) as t2
+FROM transactions) as time
+where t2 is not null)
 
---- exercise 7
+select 
+  COUNT(*) as payment_count
+from suspect_cte
+where interval <= '00:10:00'
 
+--- exercise 7: giong b2.day-13, không dùng window function cho sum(spend) được vì không order by được
+with cte_spend as
+(
+SELECT 
+  category,
+  product,
+  SUM(spend) as total_spend,
+  rank() OVER(PARTITION BY category ORDER BY sum(spend) DESC) as ranking
+FROM product_spend
+where EXTRACT(year from transaction_date) = '2022'
+GROUP BY category, product
+)
+
+select
+	category,
+	product,
+	total_spend
+from cte_spend
+where ranking <= 2
+
+--- exercise 8
+with song_cte AS
+(
+select 
+  artist_name,
+  dense_rank() over(ORDER BY COUNT(c.song_id) desc) as artist_rank
+FROM artists a
+JOIN songs b on a.artist_id = b.artist_id
+JOIN global_song_rank c on b.song_id = c.song_id
+where c.rank <= 10
+GROUP BY artist_name
+)
+
+SELECT
+  artist_name,
+  artist_rank
+FROM song_cte
+WHERE artist_rank <= 5
