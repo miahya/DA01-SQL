@@ -46,4 +46,34 @@ from cte_transactions
 where ranking = 1
 order by transaction_date;
 
---- exercise 5
+--- exercise 5: 3 days rolling = trung bình 3 ngày trước đó
+WITH cte_count AS
+(SELECT 
+  user_id,
+  tweet_date,
+  COALESCE(two,'0') as a,
+  COALESCE(one, '0') as b,
+  tweet_count as today
+FROM 
+  (SELECT 
+    user_id,
+    tweet_date,
+    lag(tweet_count,2) over(partition by user_id) as two,
+    lag(tweet_count,1) over(partition by user_id) as one,
+    tweet_count
+  FROM tweets) as cte_tweet)
+
+SELECT
+  user_id,
+  tweet_date,
+  (CASE 
+    when a = 0 and b = 0 then ROUND(today::decimal,2)
+    when a = 0 then ROUND((b+today)/2::decimal,2)
+    else ROUND((a+b+today)/3::decimal,2)
+  END) as rolling_avg_3rd
+FROM cte_count
+
+--- exercise 6: khos quas khujkhuj
+
+--- exercise 7
+
