@@ -27,7 +27,19 @@ from cte_count
 
 
 --- exercise 3
+with cte_seat as
+(
+select *,
+row_number() over(order by id) as number
+from seat
+)
 
+select id,
+coalesce(case
+            when number%2=0 then lag(student) over(order by id)
+            else lead(student) over(order by id)
+        end, student) as student
+from cte_seat
 
 --- exercise 4
 
