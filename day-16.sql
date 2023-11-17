@@ -78,7 +78,17 @@ order by visited_on
 
 
 --- exercise 7
-
+select distinct
+    first_value(person_name) over(order by turn desc) as person_name
+from
+(select
+    turn,
+    person_name,
+    weight,
+    sum(weight) over(order by turn) as total
+from queue
+order by turn) as turn_table 
+where total <=1000
 
 --- exercise 8
 
