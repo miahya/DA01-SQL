@@ -26,7 +26,7 @@ from cte_count
 --- exercise 2
 
 
---- exercise 3
+--- exercise 3: c ơi, ngoài cách dùng lag(data) 7 ngày như vậy có cách nào cộng dữ liệu trong 1 khoảng thời gian nhanh hơn không ạ?
 with cte_seat as
 (
 select *,
@@ -42,7 +42,34 @@ coalesce(case
 from cte_seat
 
 --- exercise 4
+-- Write your PostgreSQL query statement below
+with cte_rolling as
+(select
+    visited_on,
+    today+one+two+three+four+five+six as amount
+from(select
+    visited_on,
+    total as today,
+    lag(total, 1) over(order by visited_on) as one,
+    lag(total, 2) over(order by visited_on) as two,
+    lag(total, 3) over(order by visited_on) as three,
+    lag(total, 4) over(order by visited_on) as four,
+    lag(total, 5) over(order by visited_on) as five,
+    lag(total, 6) over(order by visited_on) as six
+from 
+(select distinct visited_on,
+        sum(amount) over(partition by visited_on) as total
+		from customer
+		order by visited_on
+)) as rolling
+where six is not null)
 
+select
+    visited_on,
+    amount,
+    round(amount*1.00/7,2) as average_amount
+from cte_rolling
+order by visited_on
 
 --- exercise 5
 
