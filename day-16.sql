@@ -26,7 +26,7 @@ from cte_count
 --- exercise 2
 
 
---- exercise 3: c ơi, ngoài cách dùng lag(data) 7 ngày như vậy có cách nào cộng dữ liệu trong 1 khoảng thời gian nhanh hơn không ạ?
+--- exercise 3
 with cte_seat as
 (
 select *,
@@ -41,8 +41,7 @@ coalesce(case
         end, student) as student
 from cte_seat
 
---- exercise 4
--- Write your PostgreSQL query statement below
+--- exercise 4: c ơi, ngoài cách dùng lag(data) 7 ngày như vậy có cách nào cộng dữ liệu trong 1 khoảng thời gian nhanh hơn không ạ?
 with cte_rolling as
 (select
     visited_on,
