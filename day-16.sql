@@ -90,5 +90,22 @@ order by turn) as turn_table
 where total <=1000
 
 --- exercise 8
+with cte_product as
+(select product_id, new_price as price, change_date as date,
+row_number() over(partition by product_id order by change_date desc) as rnumb
+from products
+where change_date <= '2019-08-16'
+order by change_date)
+
+select product_id, price
+from cte_product
+where rnumb = 1
+union
+select product_id, 10 as price
+from products
+where product_id not in (select product_id from cte_product)
+order by product_id
+
+
 
 
