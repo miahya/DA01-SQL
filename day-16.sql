@@ -23,8 +23,22 @@ from cte_delivery)
 select round(immediate_count::decimal / total_order::decimal * 100.00,2) as immediate_percentage
 from cte_count
 
---- exercise 2
+--- exercise 2: c cho em hỏi tại sao cách này lại sai được không ạ? em có xem hướng dẫn giải rồi nhưng không biết cách này khác ở đâu dẫn đến kqua bị lệch 0.01 ạ 
+with cte_login as
+(select 
+    player_id, 
+    min(event_date) over(partition by player_id) as first_login,
+    lead(event_date) over(partition by player_id) as actual_next_day,
+    case
+        when lead(event_date) over(partition by player_id) - min(event_date) over(partition by player_id) = 1 then 'yes'
+        else 'no'
+    end as consecutive
+from activity)
 
+select 
+round((select count(consecutive) as count from cte_login
+    where consecutive = 'yes') / count(distinct player_id) * 1.00, 2) as fraction
+from activity
 
 --- exercise 3
 with cte_seat as
@@ -71,10 +85,34 @@ from cte_rolling
 order by visited_on
 
 --- exercise 5
+with cte_location as
+(select *,
+count(*) as location
+from insurance
+group by lat, lon),
+cte_value as
+(select *,
+count(tiv_2015) over(partition by tiv_2015) as value
+from insurance)
 
+select round(sum(a.tiv_2016),2) as tiv_2016
+from cte_value a
+left join cte_location b on a.pid = b.pid
+where a.lat in (select lat from cte_location where location = 1)
+and value <> 1
 
 --- exercise 6
+with cte_emp as
+(select *,
+dense_rank() over(partition by departmentID order by salary desc) as salary_ranking
+from employee)
 
+select b.name as department,
+a.name as employee,
+salary
+from cte_emp a
+left join department b on a.departmentId = b.id
+where salary_ranking <= 3
 
 --- exercise 7
 select distinct
