@@ -48,6 +48,10 @@ or (city like 'I%')
 or (city like 'O%') 
 or (city like 'U%');
 
+DO NOT START WITH thì dùng NOT REGEXP, tương tự như trên:
+  select distinct city from station
+  where city not regexp '^[AEIOU]';
+
 -- Exercise 7
 select name
 from employee
