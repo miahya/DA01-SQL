@@ -22,6 +22,10 @@ or (city like 'I%')
 or (city like 'O%') 
 or (city like 'U%');
 
+HOẶC DÙNG REGEXP FUNCTION:
+  select distinct city from station
+  where city regexp '^[a,e,i,o,u]';
+
 -- Exercise 5
 select distinct city
 from station
