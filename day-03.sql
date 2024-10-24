@@ -22,7 +22,7 @@ or (city like 'I%')
 or (city like 'O%') 
 or (city like 'U%');
 
-HOẶC DÙNG REGEXP FUNCTION:
+HOẶC DÙNG REGEXP FUNCTION: (bắt đầu bằng chữ dùng ^[trước chữ] !!! nhớ phải cho vào '')
   select distinct city from station
   where city regexp '^[a,e,i,o,u]';
 
@@ -34,6 +34,10 @@ or (city like '%e')
 or (city like '%i') 
 or (city like '%o') 
 or (city like '%u');
+
+HOẶC DÙNG REGEXP FUNCTION: (kết thúc bằng chữ dùng [sau chữ]$ !!! nhớ phải cho vào '')
+  select distinct city from station
+  where city regexp '[a,e,i,o,u]$';
 
 -- Exercise 6 (tsao la wrong answer*)
 select distinct city
